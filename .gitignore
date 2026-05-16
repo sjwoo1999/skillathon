@@ -1,1 +1,12 @@
 .env
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+data/raw/
+data/private/
+data/real/
+raw-brokerage-exports/
+brokerage-exports/

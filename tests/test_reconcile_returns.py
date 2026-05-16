@@ -52,6 +52,8 @@ class ReconcileReturnsTests(unittest.TestCase):
         ])
         summary = json.loads((REPO_ROOT / "outputs/reconciliation-summary.json").read_text(encoding="utf-8"))
         self.assertEqual(summary["advice_boundary"], "factual_reconciliation_only")
+        self.assertIn("not a forecast", summary["annualized_xirr_note"])
+        self.assertIn("not a historical-FX cost-basis", summary["security_pnl_basis"])
         self.assertTrue(summary["safety_boundary_note_present"])
         self.assertEqual(summary["unresolved_count"], 0)
         self.assertEqual(summary["return_on_contributed_cash_pct"], "4.84")

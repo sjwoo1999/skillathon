@@ -7,6 +7,7 @@ import csv
 import json
 import re
 import zipfile
+from datetime import date
 from pathlib import Path
 
 
@@ -99,9 +100,15 @@ SECRET_PATTERNS = [
 ADVICE_PATTERNS = [
     re.compile(r"\b(buy|sell|hold)\s+(recommendation|signal|advice)\b", re.I),
     re.compile(r"\bshould\s+(buy|sell|hold|rebalance)\b", re.I),
+    re.compile(r"\b(consider|start|increase|reduce|add|trim)\s+(buying|selling|adding|reducing|trimming|exposure)\b", re.I),
+    re.compile(r"\b(good|bad)\s+(entry|exit)\b", re.I),
+    re.compile(r"\b(tax\s+deductible|deductible\s+expense|legal\s+opinion|accounting\s+treatment)\b", re.I),
+    re.compile(r"\b(will|likely to|expected to)\s+(rise|fall|outperform|underperform|beat|miss)\b", re.I),
     re.compile(r"\b(price\s*target|undervalued|overvalued)\b", re.I),
     re.compile(r"(매수|매도|보유)\s*(추천|권고)", re.I),
     re.compile(r"(사야|팔아야|리밸런싱해야|목표가)", re.I),
+    re.compile(r"(비중을|노출을)\s*(늘려|줄여|확대|축소)", re.I),
+    re.compile(r"(세금\s*공제|공제\s*가능|법적\s*의견|회계\s*처리)", re.I),
     re.compile(r"(유망|저평가|고평가)\s*(종목|주식)", re.I),
 ]
 
@@ -139,6 +146,14 @@ def validate_csv_values() -> list[str]:
         "data/mock/dividends.csv": ["gross_amount", "tax", "net_amount"],
         "data/mock/fx_rates.csv": ["rate"],
     }
+    date_columns = {
+        "data/mock/transactions.csv": ["date"],
+        "data/mock/positions_snapshot.csv": ["as_of"],
+        "data/mock/app_report.csv": ["as_of"],
+        "data/mock/cash_ledger.csv": ["date"],
+        "data/mock/dividends.csv": ["pay_date"],
+        "data/mock/fx_rates.csv": ["date"],
+    }
     for rel, columns in numeric_columns.items():
         path = ROOT / rel
         if not path.exists():
@@ -149,6 +164,16 @@ def validate_csv_values() -> list[str]:
                     float(row[column])
                 except ValueError:
                     errors.append(f"{rel}:{index} has nonnumeric {column}")
+    for rel, columns in date_columns.items():
+        path = ROOT / rel
+        if not path.exists():
+            continue
+        for index, row in enumerate(read_csv_dicts(path), start=2):
+            for column in columns:
+                try:
+                    date.fromisoformat(row[column])
+                except ValueError:
+                    errors.append(f"{rel}:{index} has invalid ISO date {column}")
     return errors
 
 
@@ -181,6 +206,8 @@ def validate_summary_json() -> list[str]:
         "unresolved_count",
         "net_cash_contributed_krw",
         "return_on_contributed_cash_pct",
+        "annualized_xirr_note",
+        "security_pnl_basis",
         "advice_boundary",
         "safety_boundary_note_present",
     }
@@ -207,6 +234,9 @@ def validate_workbook() -> list[str]:
 
 def validate_no_secrets_or_advice() -> list[str]:
     errors: list[str] = []
+    env_path = ROOT / ".env"
+    if env_path.exists() and env_path.stat().st_size > 0:
+        errors.append("Local .env is non-empty; keep secrets out of the submission folder")
     for path in ROOT.rglob("*"):
         if (
             path.is_dir()
@@ -249,7 +279,7 @@ def main() -> int:
 
     print("Validation passed.")
     print(
-        f"Checked {len(REQUIRED_FILES)} files, CSV schemas, numeric fields, outputs, workbook, secrets, and advice boundaries."
+        f"Checked {len(REQUIRED_FILES)} files, CSV schemas, numeric/date fields, outputs, workbook, secrets, and advice boundaries."
     )
     return 0
 

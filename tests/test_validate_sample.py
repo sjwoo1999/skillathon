@@ -76,6 +76,31 @@ class ValidateSampleTests(unittest.TestCase):
 
         self.assertEqual(errors, ["Potential investment advice wording in outputs/reconciliation-report.md"])
 
+    def test_advice_scan_reports_soft_exposure_language(self) -> None:
+        write_text(self.root / "outputs/reconciliation-report.md", "consider reducing exposure to AAPL\n")
+
+        errors = self.validator.validate_no_secrets_or_advice()
+
+        self.assertEqual(errors, ["Potential investment advice wording in outputs/reconciliation-report.md"])
+
+    def test_csv_values_reports_invalid_iso_dates(self) -> None:
+        write_text(
+            self.root / "data/mock/transactions.csv",
+            "date,account,symbol,side,quantity,price,currency,fee,tax,settlement_amount\n"
+            "not-a-date,main,AAPL,BUY,1,100,USD,0,0,-100\n",
+        )
+
+        errors = self.validator.validate_csv_values()
+
+        self.assertEqual(errors, ["data/mock/transactions.csv:2 has invalid ISO date date"])
+
+    def test_secret_scan_reports_nonempty_env_without_printing_value(self) -> None:
+        write_text(self.root / ".env", "API_KEY=secret-value-that-is-not-printed\n")
+
+        errors = self.validator.validate_no_secrets_or_advice()
+
+        self.assertEqual(errors, ["Local .env is non-empty; keep secrets out of the submission folder"])
+
     def test_current_repository_passes_validation_after_generation(self) -> None:
         validator = load_validator()
         output = io.StringIO()

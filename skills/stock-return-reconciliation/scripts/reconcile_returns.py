@@ -16,6 +16,12 @@ ROOT = Path(__file__).resolve().parents[3]
 DATA = ROOT / "data" / "mock"
 OUTPUTS = ROOT / "outputs"
 BASE_CURRENCY = "KRW"
+SECURITY_PNL_BASIS_NOTE = (
+    "Sample security P&L is calculated in each security's source currency, then "
+    "translated to KRW at sell-date FX for realized P&L and as-of FX for "
+    "unrealized P&L; it is not a historical-FX cost-basis or tax-lot statement."
+)
+XIRR_NOTE = "Annualized XIRR is a dated cash-flow diagnostic from mock data, not a forecast."
 
 
 @dataclass
@@ -306,6 +312,8 @@ def write_outputs(result: dict[str, object]) -> None:
         "cumulative_pnl_krw": str(money(result["cumulative_pnl"])),
         "cumulative_return_pct": str(pct(result["cumulative_return_pct"])),
         "annualized_xirr_pct": str(pct(result["xirr_return_pct"])) if result["xirr_return_pct"] is not None else None,
+        "annualized_xirr_note": XIRR_NOTE,
+        "security_pnl_basis": SECURITY_PNL_BASIS_NOTE,
         "app_total_pnl_krw": str(money(result["app_total_pnl"])),
         "recalculated_total_pnl_krw": str(money(result["total_pnl"])),
         "return_on_contributed_cash_pct": str(pct(result["contribution_return_pct"])),
@@ -354,10 +362,12 @@ def write_outputs(result: dict[str, object]) -> None:
         "- Weighted-average cost basis for the sample calculation.",
         "- Buy fees and taxes are included in cost basis.",
         "- Sell fees and taxes are deducted from proceeds.",
-            "- Net dividends are included only in the total-return candidate.",
-            "- USD values are converted to KRW using the provided mock FX rates.",
-            "- Current NAV includes reconstructed cash balances from cash ledger, transaction settlements, and dividends.",
-            "- XIRR is shown as an annualized reference and is not directly comparable to app-displayed cumulative return.",
+        "- Net dividends are included only in the total-return candidate.",
+        "- USD values are converted to KRW using the provided mock FX rates.",
+        f"- {SECURITY_PNL_BASIS_NOTE}",
+        "- Current NAV includes reconstructed cash balances from cash ledger, transaction settlements, and dividends.",
+        f"- {XIRR_NOTE}",
+        "- XIRR is not directly comparable to app-displayed cumulative return.",
         "",
         "## Reconciliation Table",
         "",

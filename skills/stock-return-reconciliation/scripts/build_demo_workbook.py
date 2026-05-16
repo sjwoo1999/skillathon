@@ -149,6 +149,8 @@ def build_sheets() -> dict[str, list[list[object]]]:
         ["Sample-basis calculated difference KRW", summary["recalculated_total_pnl_krw"]],
         ["Return on contributed cash %", summary["return_on_contributed_cash_pct"]],
         ["Difference vs app KRW", summary["difference_vs_app_krw"]],
+        ["Security P&L basis", summary["security_pnl_basis"]],
+        ["Annualized XIRR note", summary["annualized_xirr_note"]],
         ["Boundary", "Not investment, tax, legal, accounting, or trading advice"],
     ]
     checks = [

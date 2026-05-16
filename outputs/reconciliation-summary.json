@@ -11,6 +11,8 @@
   "cumulative_pnl_krw": "310514.40",
   "cumulative_return_pct": "6.61",
   "annualized_xirr_pct": "18.17",
+  "annualized_xirr_note": "Annualized XIRR is a dated cash-flow diagnostic from mock data, not a forecast.",
+  "security_pnl_basis": "Sample security P&L is calculated in each security's source currency, then translated to KRW at sell-date FX for realized P&L and as-of FX for unrealized P&L; it is not a historical-FX cost-basis or tax-lot statement.",
   "app_total_pnl_krw": "257004.00",
   "recalculated_total_pnl_krw": "227533.40",
   "return_on_contributed_cash_pct": "4.84",

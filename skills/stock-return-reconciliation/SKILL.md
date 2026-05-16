@@ -1,6 +1,6 @@
 ---
 name: stock-return-reconciliation
-description: Use this skill when a user needs to understand current return against net cash contributed using supplied mock or sanitized holdings, transactions, dividends, fees, taxes, FX, prices, and reported app returns. Do not use it to give investment, tax, legal, accounting, trading, or trade-decision guidance.
+description: Use this skill when a user needs current return against net cash contributed, portfolio return reconciliation, brokerage or app-reported return mismatch review, period return basis comparison, or TWR/MWR-style diagnostics using supplied mock or sanitized holdings, transactions, dividends, fees, taxes, FX, prices, and reported app returns. Do not use it to give investment, tax, legal, accounting, trading, or trade-decision guidance.
 ---
 
 # Stock Return Reconciliation
@@ -40,7 +40,13 @@ calculating. Use sample paths only for this Skillathon repository.
 
 ## Output
 
-Generate a markdown `Stock Return Reconciliation Report` with:
+Generate these outputs when running the Skillathon sample package:
+- `outputs/reconciliation-report.md`
+- `outputs/return-candidates.csv`
+- `outputs/reconciliation-summary.json`
+- `outputs/stock_return_reconciliation_demo.xlsx`
+
+The markdown `Stock Return Reconciliation Report` must include:
 - Scope and data sources
 - Input validation summary
 - Return methodology
@@ -52,6 +58,22 @@ Generate a markdown `Stock Return Reconciliation Report` with:
 - Manual checks and skipped checks
 - Limitations and safety notes
 
+## Scripts
+
+Use bundled scripts for this repository's deterministic mock package:
+
+- `scripts/reconcile_returns.py`: regenerates the markdown report, return
+  candidates CSV, and JSON summary from `data/mock/`.
+- `scripts/build_demo_workbook.py`: regenerates the optional XLSX review
+  workbook from the generated outputs.
+- `scripts/validate_sample.py`: checks required files, CSV schemas, numeric
+  fields, output sections, workbook structure, secret patterns, and advice
+  boundaries.
+
+For user-supplied sanitized files, do not assume the bundled scripts apply
+unchanged. First map the files to `references/data-schema.md`, confirm period,
+currency, and basis choices, then adapt calculations and document assumptions.
+
 ## Workflow
 
 1. Confirm the data is mock, public, or sanitized.
@@ -62,6 +84,8 @@ Generate a markdown `Stock Return Reconciliation Report` with:
 6. Draft the report using `references/output-format.md`.
 7. Validate the result using `references/eval-checklist.md`.
 8. List unresolved breaks, assumptions, skipped checks, and limitations.
+9. For this Skillathon repository, run the bundled scripts and report validation
+   results exactly.
 
 ## Guardrails
 
@@ -74,10 +98,10 @@ Generate a markdown `Stock Return Reconciliation Report` with:
 
 ## References
 
-- `references/data-schema.md`
-- `references/return-methodology.md`
-- `references/reconciliation-rules.md`
-- `references/output-format.md`
-- `references/eval-checklist.md`
-- `references/troubleshooting.md`
-- `references/example-prompts.md`
+- `references/data-schema.md`: read before validating CSV inputs.
+- `references/return-methodology.md`: read before choosing calculation basis.
+- `references/reconciliation-rules.md`: read before classifying breaks.
+- `references/output-format.md`: read before writing final outputs.
+- `references/eval-checklist.md`: read before final validation.
+- `references/troubleshooting.md`: read when validation fails or numbers diverge.
+- `references/example-prompts.md`: read when preparing reviewer prompts.

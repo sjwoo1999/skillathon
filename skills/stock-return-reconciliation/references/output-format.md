@@ -51,6 +51,11 @@ the workspace.
 - Sell fees and taxes are deducted from proceeds.
 - Net dividends are included only in the total-return candidate.
 - Foreign-currency values are converted to KRW using supplied mock FX rates.
+- Security-level P&L basis is explicitly labeled, including whether it is a
+  sample source-currency translation, historical-FX cost basis, FIFO, tax lot,
+  or another method.
+- Annualized XIRR values are labeled as diagnostics from dated cash flows, not
+  forecasts.
 
 ## Reconciliation Table
 
@@ -100,6 +105,31 @@ Every complete report must include:
 
 If the output is limited because data is missing, keep the same sections but mark
 unsupported tables as `Not calculated` and explain why.
+
+## JSON Summary Keys
+
+`outputs/reconciliation-summary.json` must include:
+
+- `as_of`
+- `base_currency`
+- `status`
+- `positions_checked`
+- `unresolved_count`
+- `closest_candidate`
+- `net_cash_contributed_krw`
+- `current_cash_value_krw`
+- `current_net_asset_value_krw`
+- `cumulative_pnl_krw`
+- `cumulative_return_pct`
+- `annualized_xirr_pct`
+- `annualized_xirr_note`
+- `security_pnl_basis`
+- `app_total_pnl_krw`
+- `recalculated_total_pnl_krw`
+- `return_on_contributed_cash_pct`
+- `difference_vs_app_krw`
+- `advice_boundary`
+- `safety_boundary_note_present`
 
 ## Status Vocabulary
 

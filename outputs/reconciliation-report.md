@@ -35,8 +35,10 @@
 - Sell fees and taxes are deducted from proceeds.
 - Net dividends are included only in the total-return candidate.
 - USD values are converted to KRW using the provided mock FX rates.
+- Sample security P&L is calculated in each security's source currency, then translated to KRW at sell-date FX for realized P&L and as-of FX for unrealized P&L; it is not a historical-FX cost-basis or tax-lot statement.
 - Current NAV includes reconstructed cash balances from cash ledger, transaction settlements, and dividends.
-- XIRR is shown as an annualized reference and is not directly comparable to app-displayed cumulative return.
+- Annualized XIRR is a dated cash-flow diagnostic from mock data, not a forecast.
+- XIRR is not directly comparable to app-displayed cumulative return.
 
 ## Reconciliation Table
 

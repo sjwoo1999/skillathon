@@ -51,6 +51,14 @@ Sample policies:
 - Buy fees and taxes are included in cost.
 - Sell fees and taxes reduce proceeds.
 - Net dividends are included only in the total-return candidate.
+- Security-level realized P&L is calculated in the security's source currency
+  and translated to KRW at the sell-date mock FX rate.
+- Security-level unrealized P&L is calculated in the security's source currency
+  and translated to KRW at the as-of mock FX rate.
+- This is a sample reconciliation basis, not a broker tax-lot statement or
+  historical-FX cost-basis calculation. If a source app uses historical KRW cash
+  cost, FIFO, tax lots, settlement-date FX, or another basis, report that as a
+  method difference instead of treating it as an app error.
 - App-reported return is treated as a comparison target, not as advice or a
   guaranteed source of truth.
 
