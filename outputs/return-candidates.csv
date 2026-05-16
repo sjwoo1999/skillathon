@@ -1,0 +1,5 @@
+candidate,return_pct,pnl_krw,app_return_diff_pct,app_pnl_diff_krw,basis
+current_nav_vs_net_cash_contributed,6.61,310514.40,1.14,53510.40,Current holdings plus cash minus net external cash contributed
+price_only_net_of_fees_taxes,4.78,224810.00,-0.69,-32194.00,"Realized + unrealized P&L, net of modeled fees/taxes, excluding dividends"
+total_net_return_with_dividends,4.84,227533.40,-0.63,-29470.60,"Realized + unrealized P&L + net dividends, net of modeled fees/taxes"
+app_reported,5.47,257004.00,0.00,0.00,Mock app display value from app_report.csv

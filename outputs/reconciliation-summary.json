@@ -1,0 +1,20 @@
+{
+  "as_of": "2026-05-16",
+  "base_currency": "KRW",
+  "status": "pass_with_manual_review",
+  "positions_checked": 2,
+  "unresolved_count": 0,
+  "closest_candidate": "total_net_return_with_dividends",
+  "net_cash_contributed_krw": "4700000.00",
+  "current_cash_value_krw": "1952354.40",
+  "current_net_asset_value_krw": "5010514.40",
+  "cumulative_pnl_krw": "310514.40",
+  "cumulative_return_pct": "6.61",
+  "annualized_xirr_pct": "18.17",
+  "app_total_pnl_krw": "257004.00",
+  "recalculated_total_pnl_krw": "227533.40",
+  "return_on_contributed_cash_pct": "4.84",
+  "difference_vs_app_krw": "-29470.60",
+  "advice_boundary": "factual_reconciliation_only",
+  "safety_boundary_note_present": true
+}

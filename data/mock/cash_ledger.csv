@@ -1,0 +1,5 @@
+date,account,type,currency,amount,description
+2026-01-01,main,DEPOSIT,KRW,5000000,initial mock funding
+2026-01-05,main,FX_BUY,USD,2000,bought mock USD
+2026-01-05,main,FX_SELL,KRW,-2640000,bought mock USD
+2026-03-20,main,WITHDRAWAL,KRW,-300000,personal withdrawal

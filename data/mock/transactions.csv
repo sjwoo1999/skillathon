@@ -1,0 +1,4 @@
+date,account,symbol,name,side,quantity,price,currency,fee,tax,settlement_amount
+2026-01-05,main,AAPL,Apple Example Inc,BUY,10,180.00,USD,1.00,0.00,-1801.00
+2026-03-15,main,AAPL,Apple Example Inc,SELL,4,195.00,USD,1.00,0.00,779.00
+2026-04-01,main,005930.KS,Samsung Example Co,BUY,20,72000,KRW,500,0,-1440500
